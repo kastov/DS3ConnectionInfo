@@ -11,7 +11,8 @@ namespace DS3ConnectionInfo
     /// </summary>
     public enum TeamAllegiance
     {
-        Host,       /// Loyal to host, mission to keep host alive until and through critical battle
+        Host,       /// Host or Hollow
+        HostTeam,   /// Loyal to host, mission to keep host alive until and through critical battle
         Protector,  /// Loyal to host, mission to keep host alive until invaders are dispatched
         Mad,        /// Loyal to none, mission to kill the host or any phantom
         Invader,    /// Loyal to none, mission to kill the host
@@ -29,12 +30,12 @@ namespace DS3ConnectionInfo
         private static readonly Dictionary<int, Team> teams = new Dictionary<int, Team>()
         {
             {1,  new Team("Host",                                       TeamAllegiance.Host) },
-            {2,  new Team("Phantom",                                    TeamAllegiance.Host) },
+            {2,  new Team("Phantom",                                    TeamAllegiance.HostTeam) },
             {3,  new Team("Black Phantom",                              TeamAllegiance.Invader) },
             {4,  new Team("Hollow",                                     TeamAllegiance.Host) },
             {6,  new Team("Enemy",                                      TeamAllegiance.Enemy) },
             {7,  new Team("Boss (giants, big lizard)",                  TeamAllegiance.Enemy) },
-            {8,  new Team("Friend",                                     TeamAllegiance.Host) },
+            {8,  new Team("Friend",                                     TeamAllegiance.HostTeam) },
             {9,  new Team("AngryFriend",                                TeamAllegiance.Enemy) },
             {10, new Team("DecoyEnemy",                                 TeamAllegiance.Enemy) },
             {11, new Team("BloodChild",                                 TeamAllegiance.Unknown) },
@@ -55,10 +56,11 @@ namespace DS3ConnectionInfo
         
         private static readonly Dictionary<TeamAllegiance, string> colors = new Dictionary<TeamAllegiance, string>()
         {
-            { TeamAllegiance.Host,      "#FFFFFFFF" },
+            { TeamAllegiance.Host,      "#FF00BFFF" },
+            { TeamAllegiance.HostTeam,  "#FF7CFC00" },
             { TeamAllegiance.Protector, "#FF0000FF" },
-            { TeamAllegiance.Mad,       "#FFC71585" },
-            { TeamAllegiance.Invader,   "#FFFF0000" },
+            { TeamAllegiance.Mad,       "#FFCD5C5C" },
+            { TeamAllegiance.Invader,   "#FFCD5C5C" },
             { TeamAllegiance.Defender,  "#FF7B68EE" },
             { TeamAllegiance.Enemy,     "#FF006400" },
             { TeamAllegiance.Unknown,   "#FFFFA500" },

@@ -253,6 +253,54 @@ namespace DS3ConnectionInfo
             return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x74);
         }
 
+        public static int GetPlayerSL(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x70);
+        }
+        public static int GetPlayerCurrentHP(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x18);
+        }
+        public static int GetPlayerVig(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x44);
+        }
+        public static int GetPlayerAtt(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x48);
+        }
+        public static int GetPlayerEnd(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x4C);
+        }
+        public static int GetPlayerVit(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x6C);
+        }
+        public static int GetPlayerStr(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x50);
+        }
+        public static int GetPlayerDex(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x54);
+        }
+        public static int GetPlayerInt(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x58);
+        }
+
+        public static int GetPlayerFth(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x5C);
+        }
+
+        public static int GetPlayerLck(int slot)
+        {
+            return MemoryManager.ReadGenericPtr<int>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FA0, 0x60);
+        }
+
+
         public static long GetPlayerNetHandle(int slot)
         {
             return MemoryManager.ReadGenericPtr<long>(ProcHandle, BaseB, 0x40, 0x38 * (slot + 1), 0x1FD0, 0x8);

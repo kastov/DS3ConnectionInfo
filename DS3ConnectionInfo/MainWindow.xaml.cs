@@ -63,6 +63,7 @@ namespace DS3ConnectionInfo
 
             playerData = new ObservableCollection<Player>();
             dataGridSession.DataContext = playerData;
+            dataGridStat.DataContext = playerData;
             overlay.dataGrid.DataContext = playerData;
             Title = "DS3 Connection Info " + VersionCheck.CurrentVersion;
 
@@ -70,6 +71,7 @@ namespace DS3ConnectionInfo
             swOColVisible.IsOn = Settings.Default.OverlayColVisibility[0] == "Visible";
             textColDesc.Text = Settings.Default.SessColumnDescs[0];
             UpdateColVisibility();
+            UpdateStatVisibility();
             overlay.UpdateColVisibility();
 
             Task.Run(() =>
@@ -116,12 +118,21 @@ namespace DS3ConnectionInfo
             }
         }
 
+        private void UpdateStatVisibility()
+        {
+            for (int i = 0; i < Settings.Default.StatColumnVisibility.Count; i++)
+            {
+                string visx = Settings.Default.StatColumnVisibility[i];
+                dataGridStat.Columns[i].Visibility = (Visibility)Enum.Parse(typeof(Visibility), visx);
+            }
+        }
+
         private void UpdateTimer_Tick(object sender, EventArgs e)
         {
             Player.UpdatePlayerList();
             Player.UpdateInGameInfo();
             playerData.Clear();
-
+            // sort slot/team
             foreach (Player p in Player.ActivePlayers().OrderBy(p => p.TeamAlliegance))
                 playerData.Add(p);
 
@@ -140,6 +151,18 @@ namespace DS3ConnectionInfo
                 col.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
             }
             overlay.dataGrid.UpdateLayout();
+
+
+            // update stat viewer
+
+            foreach (var col in dataGridStat.Columns)
+            {
+                col.Width = new DataGridLength(1, DataGridLengthUnitType.Pixel);
+                col.Width = new DataGridLength(1, DataGridLengthUnitType.Auto);
+            }
+            dataGridStat.UpdateLayout();
+
+            // end of stat viewer
 
             // Queue position update after the overlay has re-rendered
             Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(overlay.UpdatePosition));

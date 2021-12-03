@@ -29,6 +29,20 @@ namespace DS3ConnectionInfo
         public string CharName { get; private set; }
         public int TeamId { get; private set; }
 
+
+        public int SoulLevel { get; private set; }
+        public int CurrentHP { get; private set; }
+        public int Vig { get; private set; }
+        public int Att { get; private set; }
+        public int End { get; private set; }
+        public int Vit { get; private set; }
+        public int Str { get; private set; }
+        public int Dex { get; private set; }
+        public int Int { get; private set; }
+        public int Fth { get; private set; }
+        public int Lck { get; private set; }
+
+
         public string TeamName => Team.GetTeamFromId(TeamId).Name;
         public TeamAllegiance TeamAlliegance => Team.GetTeamFromId(TeamId).Allegiance;
         public ulong SteamId64 => SteamID.m_SteamID;
@@ -69,6 +83,26 @@ namespace DS3ConnectionInfo
             }
         }
 
+
+        public string HealthColor
+        {
+            get
+            {
+                switch (CurrentHP)
+                {
+                    case -1:
+                        return Settings.Default.TextColor;
+                    case int n when (n >= 1200):
+                        return Settings.Default.PingColor1;
+                    case int n when (n >= 600):
+                        return Settings.Default.PingColor2;
+                    case int n when (n <= 200):
+                        return Settings.Default.PingColor3;
+                    default:
+                        return Settings.Default.PingColor4;
+                }
+            }
+        }
         private Player(CSteamID steamID)
         {
             SteamID = steamID;
@@ -124,10 +158,21 @@ namespace DS3ConnectionInfo
                     activePlayers[id].CharSlot = slot.ToString();
                     activePlayers[id].CharName = DS3Interop.GetPlayerName(slot);
                     activePlayers[id].TeamId = DS3Interop.GetPlayerTeam(slot);
+                    activePlayers[id].SoulLevel = DS3Interop.GetPlayerSL(slot);
+                    activePlayers[id].CurrentHP = DS3Interop.GetPlayerCurrentHP(slot);
+                    activePlayers[id].Vig = DS3Interop.GetPlayerVig(slot);
+                    activePlayers[id].Att = DS3Interop.GetPlayerAtt(slot);
+                    activePlayers[id].End = DS3Interop.GetPlayerEnd(slot);
+                    activePlayers[id].Vit = DS3Interop.GetPlayerVit(slot);
+                    activePlayers[id].Str = DS3Interop.GetPlayerStr(slot);
+                    activePlayers[id].Dex = DS3Interop.GetPlayerDex(slot);
+                    activePlayers[id].Int = DS3Interop.GetPlayerInt(slot);
+                    activePlayers[id].Fth = DS3Interop.GetPlayerFth(slot);
+                    activePlayers[id].Lck = DS3Interop.GetPlayerLck(slot);
                 }
                 catch (Exception)
                 {
-                    
+
                 }
             }
         }
@@ -154,7 +199,7 @@ namespace DS3ConnectionInfo
                 }
                 if (!activePlayers.ContainsKey(id))
                     activePlayers[id] = new Player(id);
-                
+
                 activePlayers[id].UpdateNetInfo(session);
             }
         }

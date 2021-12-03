@@ -27,17 +27,26 @@
         <SolidColorBrush Color="Transparent"></SolidColorBrush>
     </Window.Background>
     <StackPanel HorizontalAlignment="Left">
-        <local:OverlayTextBlock x:Name="header" Style="{StaticResource defaultStyle}"></local:OverlayTextBlock>
+        <local:OverlayTextBlock x:Name="header" Style="{StaticResource defaultStyle}"  TextAlignment="Right"></local:OverlayTextBlock>
         <DataGrid CanUserSortColumns="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserResizeColumns="False" HeadersVisibility="None" 
                   Background="Transparent" RowBackground="Transparent" ItemsSource="{Binding}" AutoGenerateColumns="False" Name="dataGrid" ColumnWidth="SizeToCells">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Slot" SortDirection="Ascending">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OverlayTextBlock Text="{Binding CharSlot}" Style="{StaticResource defaultStyle}" TextAlignment="center" />
+                            <local:OverlayTextBlock Text="{Binding CharSlot, StringFormat=[{0}]}" Style="{StaticResource defaultStyle}" TextAlignment="center" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Current HP">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <local:OverlayTextBlock Text="{Binding CurrentHP,  StringFormat={}{0}hp}" Fill="{Binding HealthColor}" Style="{StaticResource defaultStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
                 <DataGridTemplateColumn Header="Char. Name">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -45,13 +54,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Team Name">
+                <DataGridTemplateColumn Header="Team">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <local:OverlayTextBlock Text="{Binding TeamName}" Fill="{Binding TeamColor}" Style="{StaticResource defaultStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
                 <DataGridTemplateColumn Header="Steam Name">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -66,6 +76,16 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Soul Level">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <local:OverlayTextBlock Text="{Binding SoulLevel,StringFormat={}{0} SL}" Style="{StaticResource defaultStyle}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
                 <DataGridTemplateColumn Header="Steam ID 64">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -76,7 +96,7 @@
                 <DataGridTemplateColumn Header="Ping">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OverlayTextBlock Text="{Binding Ping, StringFormat=N0}" Fill="{Binding PingColor}" TextAlignment="Right" Style="{StaticResource defaultStyle}" />
+                            <local:OverlayTextBlock Text="{Binding Ping, StringFormat={}{0:N0}ms}" Fill="{Binding PingColor}" TextAlignment="Right" Style="{StaticResource defaultStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -104,7 +124,7 @@
                 <DataGridTemplateColumn Header="Location">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <local:OverlayTextBlock Text="{Binding Region}" Style="{StaticResource defaultStyle}" />
+                            <local:OverlayTextBlock Text="{Binding Region, StringFormat={}{0}}" Style="{StaticResource defaultStyle}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

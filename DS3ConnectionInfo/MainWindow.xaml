@@ -54,14 +54,14 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Slot" IsReadOnly="True" Binding="{Binding CharSlot}" SortDirection="Ascending" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Char. Name" IsReadOnly="True" Binding="{Binding CharName}"></DataGridTextColumn>
-						<DataGridTextColumn Header="Team" IsReadOnly="True" Binding="{Binding TeamName}">
-							<DataGridTextColumn.ElementStyle>
-								<Style TargetType="{x:Type TextBlock}">
-									<Setter Property="Foreground" Value="{Binding TeamColor}"></Setter>
+                        <DataGridTextColumn Header="Team" IsReadOnly="True" Binding="{Binding TeamName}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding TeamColor}"></Setter>
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-						<DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding SteamName}">
+                        <DataGridTextColumn Header="Steam Name" IsReadOnly="True" Binding="{Binding SteamName}">
                             <DataGridTextColumn.ElementStyle>
                                 <Style TargetType="{x:Type TextBlock}">
                                     <Setter Property="Foreground" Value="{Binding SteamNameColor}"></Setter>
@@ -94,6 +94,7 @@
                         </DataGridTextColumn>
                         <DataGridTextColumn Header="Jitter" IsReadOnly="True" Binding="{Binding Jitter, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Late Packet %" IsReadOnly="True" Binding="{Binding LatePacketRatio, StringFormat=N1}" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="SL" IsReadOnly="True" Binding="{Binding SoulLevel}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Location" IsReadOnly="True" Binding="{Binding Region}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
@@ -184,7 +185,7 @@
                             <Label Content="Enable Hotkeys" Grid.Row="2" Grid.Column="0"></Label>
                             <mah:ToggleSwitch Grid.Row="2" Margin="10 0" Grid.Column="1" IsOn="{Binding Source={x:Static local:Settings.Default}, Path=UseHotkeys}" Name="swToggleHotkeys"
                                           OnContent="Yes" OffContent="No" ToolTip="Enable/disable the hotkey system." Toggled="swToggleHotkeys_Toggled"></mah:ToggleSwitch>
-                            
+
                             <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" FontWeight="Bold">Show/Hide Session Info Columns:</Label>
                             <ComboBox Grid.Row="5" Grid.Column="0" SelectedIndex="0" Name="cbColName" SelectionChanged="cbColName_SelectionChanged">
                                 <ComboBoxItem>Slot</ComboBoxItem>
@@ -197,6 +198,7 @@
                                 <ComboBoxItem>Average Ping</ComboBoxItem>
                                 <ComboBoxItem>Jitter</ComboBoxItem>
                                 <ComboBoxItem>Late Packet %</ComboBoxItem>
+                                <ComboBoxItem>SL</ComboBoxItem>
                                 <ComboBoxItem>Location</ComboBoxItem>
                             </ComboBox>
                             <mah:ToggleSwitch Margin="10 0" Grid.Row="5" Grid.Column="1" IsOn="True" OnContent="Shown" OffContent="Hidden" Name="swColVisible" Toggled="swColVisible_Toggled"></mah:ToggleSwitch>
@@ -326,20 +328,61 @@
                                ToolTip="To see a description of these values, see the Settings tab.">Show/Hide Overlay Columns:</Label>
                         <ComboBox Grid.Row="19" Grid.Column="0" SelectedIndex="0" Name="cbOColName" SelectionChanged="cbOColName_SelectionChanged">
                             <ComboBoxItem>Slot</ComboBoxItem>
+                            <ComboBoxItem>Current HP</ComboBoxItem>
                             <ComboBoxItem>Char. Name</ComboBoxItem>
                             <ComboBoxItem>Team</ComboBoxItem>
                             <ComboBoxItem>Steam Name</ComboBoxItem>
                             <ComboBoxItem>Overlay Name</ComboBoxItem>
+                            <ComboBoxItem>SL</ComboBoxItem>
                             <ComboBoxItem>Steam ID 64</ComboBoxItem>
                             <ComboBoxItem>Ping</ComboBoxItem>
                             <ComboBoxItem>Average Ping</ComboBoxItem>
                             <ComboBoxItem>Jitter</ComboBoxItem>
                             <ComboBoxItem>Late Packet %</ComboBoxItem>
                             <ComboBoxItem>Location</ComboBoxItem>
+                            
                         </ComboBox>
                         <mah:ToggleSwitch Margin="10 0" Grid.Row="19" Grid.Column="1" IsOn="True" OnContent="Shown" OffContent="Hidden" Name="swOColVisible" Toggled="swOColVisible_Toggled"></mah:ToggleSwitch>
                     </Grid>
                 </StackPanel>
+            </mah:MetroTabItem>
+            <mah:MetroTabItem Header="Stat Viewer" IsEnabled="True">
+                <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="dataGridStat" GridLinesVisibility="All" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Slot" IsReadOnly="True" Binding="{Binding CharSlot}" SortDirection="Ascending" ElementStyle="{StaticResource textCenter}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="IGN" IsReadOnly="True" Binding="{Binding CharName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Team" IsReadOnly="True" Binding="{Binding TeamName}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding TeamColor}"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Current HP" IsReadOnly="True" Binding="{Binding CurrentHP}">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Foreground" Value="{Binding HealthColor}"></Setter>
+                                    <Setter Property="TextAlignment" Value="Center"></Setter>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+                        
+                        <DataGridTextColumn Header="SL"  IsReadOnly="True"  Binding="{Binding SoulLevel}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="VIG" IsReadOnly="True" Binding="{Binding Vig}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="ATT" IsReadOnly="True" Binding="{Binding Att}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="END" IsReadOnly="True"  Binding="{Binding End}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="VIT" IsReadOnly="True"  Binding="{Binding Vit}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="STR" IsReadOnly="True"  Binding="{Binding Str}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="DEX" IsReadOnly="True"  Binding="{Binding Dex}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="INT" IsReadOnly="True"  Binding="{Binding Int}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="FTH" IsReadOnly="True"  Binding="{Binding Fth}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="LCK" IsReadOnly="True"  Binding="{Binding Lck}"></DataGridTextColumn>
+                        
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
             </mah:MetroTabItem>
         </mah:MetroTabControl>
     </Grid>
